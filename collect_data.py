@@ -7,7 +7,7 @@ import time
 from datetime import datetime
 
 class DataCollector:
-    def __init__(self, save_dir="collected_data", frame_skip=2):
+    def __init__(self, save_dir="data", frame_skip=1):
         self.save_dir = Path(save_dir)
         self.save_dir.mkdir(exist_ok=True)
         self.frame_skip = frame_skip
@@ -131,5 +131,5 @@ class DataCollector:
 
 if __name__ == "__main__":
     # Start with a small test run
-    collector = DataCollector(frame_skip=2)  # Only save every 2nd frame
+    collector = DataCollector(frame_skip=1)  # Only save every 2nd frame
     collector.collect_data(num_episodes=5)

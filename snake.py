@@ -11,6 +11,7 @@ class SnakeEnv(gym.Env):
     RIGHT = 1
     DOWN = 2
     LEFT = 3
+    NO_ACTION = 4  # Indicates no new direction input
     
     def __init__(self, grid_size=20, pixel_size=20):
         super(SnakeEnv, self).__init__()
@@ -31,7 +32,7 @@ class SnakeEnv(gym.Env):
         self.screen = None
         
         # Action space (0: up, 1: right, 2: down, 3: left)
-        self.action_space = spaces.Discrete(4)
+        self.action_space = spaces.Discrete(5)
         
         # Observation space (grid_size x grid_size x 3)
         # Channel 1: Snake body
@@ -93,9 +94,10 @@ class SnakeEnv(gym.Env):
         """Execute action and return new state, reward, done, info"""
         self.steps += 1
         
-        # Update direction if valid
-        if self._is_valid_direction(action):
+        # Update direction if valid and not NO_ACTION
+        if action != self.NO_ACTION and self._is_valid_direction(action):
             self.direction = action
+        # NO_ACTION means continue in current direction
             
         # Get new head position based on current direction
         x, y = self.snake[0]
@@ -216,9 +218,9 @@ if __name__ == "__main__":
                 elif event.key == pygame.K_a:
                     action = env.LEFT
         
-        # If no key pressed, continue in current direction
+        # If no key pressed, use NO_ACTION to continue in current direction
         if action is None:
-            action = env.direction
+            action = env.NO_ACTION
             
         # Step environment
         obs, reward, done, info = env.step(action)
