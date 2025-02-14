@@ -131,7 +131,7 @@ class SnakeEnv(gym.Env):
             
         # Check if game should end (optional: can add max steps)
         done = False
-        if self.steps >= self.GRID_SIZE * self.GRID_SIZE * 2:
+        if self.steps >= self.GRID_SIZE * self.GRID_SIZE * 10:
             done = True
             
         return self._get_observation(), reward, done, {"score": self.score}

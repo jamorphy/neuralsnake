@@ -179,7 +179,7 @@ class SnakeAgent:
         print(f"  Episode length: {episode_data['episode_length']}")
         print(f"  Directory: {episode_dir}")
 
-    def train(self, num_episodes, max_steps=1000, save_interval=10):
+    def train(self, num_episodes, max_steps=10000, save_interval=10):
         print("\nStarting training...")
         print(f"Number of episodes: {num_episodes}")
         print(f"Max steps per episode: {max_steps}")
